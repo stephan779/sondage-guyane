@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sport &amp; Bien-être en Guyane</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a;
+    --gold: #c8a84b;
+    --cream: #f5f0e8;
+    --sand: #e8dcc8;
+    --warm-white: #faf8f3;
+    --text: #1a1a1a;
+    --muted: #6b6b5a;
+    --accent: #7a9e6f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: var(--forest);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(200,168,75,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(122,158,111,0.12) 0%, transparent 50%);
+  }
+
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 46px);
+    color: var(--cream);
+    line-height: 1.2;
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero p {
+    color: rgba(245,240,232,0.65);
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .progress-bar-wrap {
+    background: var(--sand);
+    height: 4px;
+    width: 100%;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px 24px 80px;
+  }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 48px 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+  }
+
+  .question {
+    margin-bottom: 36px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question label.q-label {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--forest);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .question label.q-label span.req {
+    color: var(--gold);
+    margin-left: 3px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 18px;
+    border: 1.5px solid var(--sand);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+  }
+
+  .option:hover {
+    border-color: var(--accent);
+    background: rgba(122,158,111,0.04);
+  }
+
+  .option input[type="radio"],
+  .option input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--sand);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .option input[type="checkbox"] {
+    border-radius: 4px;
+  }
+
+  .option input[type="radio"]:checked,
+  .option input[type="checkbox"]:checked {
+    border-color: var(--gold);
+    background: var(--gold);
+  }
+
+  .option input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .option input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    color: white;
+    font-weight: 700;
+  }
+
+  .option.selected {
+    border-color: var(--gold);
+    background: rgba(200,168,75,0.05);
+  }
+
+  .option span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .option-other {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 18px;
+    border: 1.5px solid var(--sand);
+    border-radius: 8px;
+    background: white;
+  }
+
+  .option-other input[type="radio"],
+  .option-other input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--sand);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .option-other input[type="checkbox"] { border-radius: 4px; }
+
+  .option-other input[type="radio"]:checked,
+  .option-other input[type="checkbox"]:checked {
+    border-color: var(--gold);
+    background: var(--gold);
+  }
+
+  .option-other input.other-text {
+    appearance: auto;
+    border: none;
+    border-bottom: 1.5px solid var(--sand);
+    border-radius: 0;
+    width: auto;
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+    padding: 2px 0;
+    color: var(--text);
+    height: auto;
+  }
+
+  .option-other input.other-text:focus {
+    border-bottom-color: var(--gold);
+  }
+
+  textarea {
+    width: 100%;
+    border: 1.5px solid var(--sand);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: white;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  textarea:focus { border-color: var(--gold); }
+
+  .email-input {
+    width: 100%;
+    border: 1.5px solid var(--sand);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .email-input:focus { border-color: var(--gold); }
+
+  .submit-wrap {
+    margin-top: 56px;
+    text-align: center;
+  }
+
+  .submit-btn {
+    background: var(--forest);
+    color: var(--cream);
+    border: none;
+    padding: 18px 56px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .submit-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .submit-btn:hover::before { transform: translateX(0); }
+  .submit-btn span { position: relative; }
+
+  .submit-btn:hover { color: var(--forest); }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .error-msg {
+    color: #c0392b;
+    font-size: 12px;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .question.has-error .error-msg { display: block; }
+  .question.has-error .option { border-color: #fadbd8; }
+
+  /* Success screen */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 40px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .success-screen.visible { display: block; }
+
+  .success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 32px;
+  }
+
+  .success-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--forest);
+    margin-bottom: 14px;
+  }
+
+  .success-screen p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(245,240,232,0.3);
+    border-top-color: var(--cream);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Sport &amp; Bien-être en Guyane</div>
+  <h1>Sport &amp; <em>Bien-être</em> en Guyane</h1>
+  <p>Quelques minutes pour façonner l'offre de demain</p>
+</div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<div id="formSection">
+  <div class="form-container">
+
+    <!-- PARTIE 1 -->
+    <div class="section-label">Partie 1 — Votre profil</div>
+
+    <div class="question" id="q1">
+      <label class="q-label">1/ Vous êtes :<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.1284738113" value="une femme"><span>Une femme</span></label>
+        <label class="option"><input type="radio" name="entry.1284738113" value="Un homme"><span>Un homme</span></label>
+        <label class="option"><input type="radio" name="entry.1284738113" value="Je ne souhaite pas le préciser"><span>Je ne souhaite pas le préciser</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q2">
+      <label class="q-label">2/ Vous avez :<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.301297665" value="Moins de 25 ans"><span>Moins de 25 ans</span></label>
+        <label class="option"><input type="radio" name="entry.301297665" value="25 - 34 ans"><span>25 – 34 ans</span></label>
+        <label class="option"><input type="radio" name="entry.301297665" value="35 - 44 ans"><span>35 – 44 ans</span></label>
+        <label class="option"><input type="radio" name="entry.301297665" value="45 ans et plus"><span>45 ans et plus</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q3">
+      <label class="q-label">3/ Vous habitez :<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.686864994" value="Cayenne"><span>Cayenne</span></label>
+        <label class="option"><input type="radio" name="entry.686864994" value="Rémire-Montjoly"><span>Rémire-Montjoly</span></label>
+        <label class="option"><input type="radio" name="entry.686864994" value="Matoury"><span>Matoury</span></label>
+      </div>
+      <div class="option-other">
+        <input type="radio" name="entry.686864994" id="q3other-radio" value="">
+        <input type="text" class="other-text" id="q3other-text" placeholder="Autre : précisez...">
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q4">
+      <label class="q-label">4/ Votre situation professionnelle :<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.1259222595" value="Fonctionnaire / agent public"><span>Fonctionnaire / agent public</span></label>
+        <label class="option"><input type="radio" name="entry.1259222595" value="Salarié(e) secteur privé"><span>Salarié(e) secteur privé</span></label>
+        <label class="option"><input type="radio" name="entry.1259222595" value="Indépendant(e) / chef(fe) d'entreprise"><span>Indépendant(e) / chef(fe) d'entreprise</span></label>
+      </div>
+      <div class="option-other">
+        <input type="radio" name="entry.1259222595" id="q4other-radio" value="">
+        <input type="text" class="other-text" id="q4other-text" placeholder="Autre : précisez...">
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- PARTIE 2 -->
+    <div class="section-label">Partie 2 — Habitudes sport &amp; bien-être</div>
+
+    <div class="question" id="q5">
+      <label class="q-label">5/ Pratiquez-vous une activité physique régulière ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.808424199" value="Oui, plusieurs fois par semaine"><span>Oui, plusieurs fois par semaine</span></label>
+        <label class="option"><input type="radio" name="entry.808424199" value="Oui, environ une fois par semaine"><span>Oui, environ une fois par semaine</span></label>
+        <label class="option"><input type="radio" name="entry.808424199" value="Rarement"><span>Rarement</span></label>
+        <label class="option"><input type="radio" name="entry.808424199" value="Non"><span>Non</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q6">
+      <label class="q-label">6/ Si oui, où pratiquez-vous principalement ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.1534138392" value="Salle de sport"><span>Salle de sport</span></label>
+        <label class="option"><input type="radio" name="entry.1534138392" value="Chez moi"><span>Chez moi</span></label>
+        <label class="option"><input type="radio" name="entry.1534138392" value="En extérieur (plage, parc...)"><span>En extérieur (plage, parc…)</span></label>
+      </div>
+      <div class="option-other">
+        <input type="radio" name="entry.1534138392" id="q6other-radio" value="">
+        <input type="text" class="other-text" id="q6other-text" placeholder="Autre : précisez...">
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q7">
+      <label class="q-label">7/ Qu'est-ce qui vous freine le plus dans la pratique sportive ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.879673655" value="Manque de temps"><span>Manque de temps</span></label>
+        <label class="option"><input type="radio" name="entry.879673655" value="Manque de motivation"><span>Manque de motivation</span></label>
+        <label class="option"><input type="radio" name="entry.879673655" value="Offre locale peu adaptée"><span>Offre locale peu adaptée</span></label>
+        <label class="option"><input type="radio" name="entry.879673655" value="Tarifs trop élevés"><span>Tarifs trop élevés</span></label>
+        <label class="option"><input type="radio" name="entry.879673655" value="Préférence pour un environnement non mixte"><span>Préférence pour un environnement non mixte</span></label>
+      </div>
+      <div class="option-other">
+        <input type="radio" name="entry.879673655" id="q7other-radio" value="">
+        <input type="text" class="other-text" id="q7other-text" placeholder="Autre : précisez...">
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- PARTIE 3 -->
+    <div class="section-label">Partie 3 — Vos besoins &amp; attentes</div>
+
+    <div class="question" id="q8">
+      <label class="q-label">8/ Seriez-vous intéressé(e) par un espace dédié au sport et au bien-être dans votre secteur ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.1611343441" value="Très intéressé(e)"><span>Très intéressé(e)</span></label>
+        <label class="option"><input type="radio" name="entry.1611343441" value="Plutôt intéressé(e)"><span>Plutôt intéressé(e)</span></label>
+        <label class="option"><input type="radio" name="entry.1611343441" value="Peu intéressé(e)"><span>Peu intéressé(e)</span></label>
+        <label class="option"><input type="radio" name="entry.1611343441" value="Pas du tout intéressé(e)"><span>Pas du tout intéressé(e)</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q9">
+      <label class="q-label">9/ Parmi les services suivants, lesquels vous intéresseraient ? <em style="font-size:13px;color:var(--muted)">(3 choix maximum)</em><span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="checkbox" name="entry.96101644" value="Cours collectifs de remise en forme"><span>Cours collectifs de remise en forme</span></label>
+        <label class="option"><input type="checkbox" name="entry.96101644" value="Accompagnement personnalisé / coaching"><span>Accompagnement personnalisé / coaching</span></label>
+        <label class="option"><input type="checkbox" name="entry.96101644" value="Séances de récupération physique"><span>Séances de récupération physique</span></label>
+        <label class="option"><input type="checkbox" name="entry.96101644" value="Soins par la chaleur"><span>Soins par la chaleur</span></label>
+        <label class="option"><input type="checkbox" name="entry.96101644" value="Soins par le froid"><span>Soins par le froid</span></label>
+        <label class="option"><input type="checkbox" name="entry.96101644" value="Espace détente / relaxation"><span>Espace détente / relaxation</span></label>
+      </div>
+      <div class="hint">Sélectionnez jusqu'à 3 options</div>
+      <div class="error-msg">Veuillez sélectionner au moins une réponse.</div>
+    </div>
+
+    <div class="question" id="q10">
+      <label class="q-label">10/ Seriez-vous favorable à un espace exclusivement féminin ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.1037814198" value="Oui, c'est essentiel"><span>Oui, c'est essentiel</span></label>
+        <label class="option"><input type="radio" name="entry.1037814198" value="Oui, c'est un plus"><span>Oui, c'est un plus</span></label>
+        <label class="option"><input type="radio" name="entry.1037814198" value="Non, je préfère un espace mixte"><span>Non, je préfère un espace mixte</span></label>
+        <label class="option"><input type="radio" name="entry.1037814198" value="Indifférent(e)"><span>Indifférent(e)</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- PARTIE 4 -->
+    <div class="section-label">Partie 4 — Budget &amp; abonnement</div>
+
+    <div class="question" id="q11">
+      <label class="q-label">11/ Quel budget mensuel seriez-vous prêt(e) à consacrer à votre sport et bien-être ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.1788465369" value="Moins de 50 euros"><span>Moins de 50 €</span></label>
+        <label class="option"><input type="radio" name="entry.1788465369" value="50 - 80 euros"><span>50 – 80 €</span></label>
+        <label class="option"><input type="radio" name="entry.1788465369" value="80 - 120 euros"><span>80 – 120 €</span></label>
+        <label class="option"><input type="radio" name="entry.1788465369" value="Plus de 120 euros"><span>Plus de 120 €</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q12">
+      <label class="q-label">12/ Quelle formule vous conviendrait le mieux ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.974159447" value="Abonnement mensuel sans engagement"><span>Abonnement mensuel sans engagement</span></label>
+        <label class="option"><input type="radio" name="entry.974159447" value="Abonnement trimestriel (tarif réduit)"><span>Abonnement trimestriel (tarif réduit)</span></label>
+        <label class="option"><input type="radio" name="entry.974159447" value="Abonnement annuel (meilleur tarif)"><span>Abonnement annuel (meilleur tarif)</span></label>
+        <label class="option"><input type="radio" name="entry.974159447" value="Séances à l'unité"><span>Séances à l'unité</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <div class="question" id="q13">
+      <label class="q-label">13/ Seriez-vous prêt(e) à payer des tarifs différents selon le niveau de services souhaité ?<span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="radio" name="entry.25830255" value="Oui, je préfère choisir uniquement ce dont j'ai besoin"><span>Oui, je préfère choisir uniquement ce dont j'ai besoin</span></label>
+        <label class="option"><input type="radio" name="entry.25830255" value="Oui, si une formule tout inclus existe"><span>Oui, si une formule tout inclus existe</span></label>
+        <label class="option"><input type="radio" name="entry.25830255" value="Non, je préfère un tarif unique et simple"><span>Non, je préfère un tarif unique et simple</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner une réponse.</div>
+    </div>
+
+    <!-- PARTIE 5 -->
+    <div class="section-label">Partie 5 — Disponibilité &amp; attentes</div>
+
+    <div class="question" id="q14">
+      <label class="q-label">14/ Quand préférez-vous pratiquer ? <em style="font-size:13px;color:var(--muted)">(Plusieurs réponses possibles)</em><span class="req">*</span></label>
+      <div class="options">
+        <label class="option"><input type="checkbox" name="entry.1337983098" value="Matin (avant 9h)"><span>Matin (avant 9h)</span></label>
+        <label class="option"><input type="checkbox" name="entry.1337983098" value="Milieu de journée"><span>Milieu de journée</span></label>
+        <label class="option"><input type="checkbox" name="entry.1337983098" value="Après le travail (17h - 20h)"><span>Après le travail (17h – 20h)</span></label>
+        <label class="option"><input type="checkbox" name="entry.1337983098" value="Week-end"><span>Week-end</span></label>
+      </div>
+      <div class="error-msg">Veuillez sélectionner au moins une réponse.</div>
+    </div>
+
+    <div class="question" id="q15">
+      <label class="q-label">15/ Avez-vous des attentes particulières concernant une offre sport et bien-être en Guyane ?<span class="req">*</span></label>
+      <textarea name="entry.749666861" id="textarea15" placeholder="Partagez vos idées, suggestions ou besoins spécifiques…"></textarea>
+      <div class="error-msg">Veuillez renseigner ce champ.</div>
+    </div>
+
+    <!-- Email optionnel -->
+    <div class="question">
+      <label class="q-label" style="font-size:15px;color:var(--muted)">Si vous souhaitez être tenu(e) informé(e) des nouveautés bien-être dans votre secteur, laissez votre email <em style="font-weight:300">(facultatif)</em> :</label>
+      <input type="email" class="email-input" id="emailField" placeholder="votre@email.com">
+    </div>
+
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+        <span id="btnText">Envoyer mes réponses</span>
+        <div class="loading-spinner" id="spinner"></div>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Success -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">🌿</div>
+  <h2>Merci pour votre participation !</h2>
+  <p>Vos réponses ont bien été enregistrées.<br>Elles contribueront à façonner l'offre bien-être en Guyane.</p>
+</div>
+
+<script>
+  // Gestion du style "selected" sur les options
+  document.querySelectorAll('.option input[type="radio"], .option input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', () => {
+      if (input.type === 'radio') {
+        document.querySelectorAll(`.option input[name="${input.name}"]`).forEach(r => {
+          r.closest('.option').classList.remove('selected');
+        });
+      }
+      if (input.checked) input.closest('.option').classList.add('selected');
+      else input.closest('.option').classList.remove('selected');
+
+      // Limite 3 choix pour q9
+      if (input.name === 'entry.96101644' && input.type === 'checkbox') {
+        const checked = document.querySelectorAll('input[name="entry.96101644"]:checked');
+        if (checked.length >= 3) {
+          document.querySelectorAll('input[name="entry.96101644"]:not(:checked)').forEach(c => c.disabled = true);
+        } else {
+          document.querySelectorAll('input[name="entry.96101644"]').forEach(c => c.disabled = false);
+        }
+      }
+    });
+  });
+
+  // Gestion des champs "Autre"
+  ['q3', 'q4', 'q6', 'q7'].forEach(qId => {
+    const textInput = document.getElementById(`${qId}other-text`);
+    const radioInput = document.getElementById(`${qId}other-radio`);
+    if (!textInput) return;
+    textInput.addEventListener('focus', () => {
+      radioInput.checked = true;
+      radioInput.value = textInput.value || ' ';
+    });
+    textInput.addEventListener('input', () => {
+      radioInput.value = textInput.value || ' ';
+    });
+  });
+
+  // Barre de progression
+  function updateProgress() {
+    const questions = document.querySelectorAll('.question[id^="q"]');
+    let answered = 0;
+    questions.forEach(q => {
+      const radios = q.querySelectorAll('input[type="radio"]:checked');
+      const checks = q.querySelectorAll('input[type="checkbox"]:checked');
+      const textarea = q.querySelector('textarea');
+      if (radios.length > 0 || checks.length > 0 || (textarea && textarea.value.trim())) answered++;
+    });
+    document.getElementById('progressBar').style.width = `${(answered / questions.length) * 100}%`;
+  }
+
+  document.addEventListener('change', updateProgress);
+  document.addEventListener('input', updateProgress);
+
+  // Validation
+  function validate() {
+    let valid = true;
+    const required = [
+      { id: 'q1', type: 'radio', name: 'entry.1284738113' },
+      { id: 'q2', type: 'radio', name: 'entry.301297665' },
+      { id: 'q3', type: 'radio', name: 'entry.686864994' },
+      { id: 'q4', type: 'radio', name: 'entry.1259222595' },
+      { id: 'q5', type: 'radio', name: 'entry.808424199' },
+      { id: 'q6', type: 'radio', name: 'entry.1534138392' },
+      { id: 'q7', type: 'radio', name: 'entry.879673655' },
+      { id: 'q8', type: 'radio', name: 'entry.1611343441' },
+      { id: 'q9', type: 'checkbox', name: 'entry.96101644' },
+      { id: 'q10', type: 'radio', name: 'entry.1037814198' },
+      { id: 'q11', type: 'radio', name: 'entry.1788465369' },
+      { id: 'q12', type: 'radio', name: 'entry.974159447' },
+      { id: 'q13', type: 'radio', name: 'entry.25830255' },
+      { id: 'q14', type: 'checkbox', name: 'entry.1337983098' },
+      { id: 'q15', type: 'textarea' },
+    ];
+
+    required.forEach(r => {
+      const qEl = document.getElementById(r.id);
+      qEl.classList.remove('has-error');
+      if (r.type === 'radio') {
+        if (!document.querySelector(`input[name="${r.name}"]:checked`)) {
+          qEl.classList.add('has-error'); valid = false;
+        }
+      } else if (r.type === 'checkbox') {
+        if (!document.querySelector(`input[name="${r.name}"]:checked`)) {
+          qEl.classList.add('has-error'); valid = false;
+        }
+      } else if (r.type === 'textarea') {
+        if (!document.getElementById('textarea15').value.trim()) {
+          qEl.classList.add('has-error'); valid = false;
+        }
+      }
+    });
+
+    if (!valid) {
+      document.querySelector('.has-error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return valid;
+  }
+
+  async function submitForm() {
+    if (!validate()) return;
+
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('spinner');
+    btn.disabled = true;
+    btnText.style.display = 'none';
+    spinner.style.display = 'block';
+
+    // Construction de l'URL de soumission Google Forms
+    const submitURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeJkZzQmxqWJETvYw6yQuKoJyel494Inc7THirgQtFTsFz37A/formResponse';
+
+    const params = new URLSearchParams();
+
+    // Champs radio simples
+    const radioFields = [
+      'entry.1284738113', 'entry.301297665', 'entry.686864994',
+      'entry.1259222595', 'entry.808424199', 'entry.1534138392',
+      'entry.879673655', 'entry.1611343441', 'entry.1037814198',
+      'entry.1788465369', 'entry.974159447', 'entry.25830255'
+    ];
+
+    radioFields.forEach(name => {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      if (checked) params.append(name, checked.value);
+    });
+
+    // Checkboxes (multiples)
+    ['entry.96101644', 'entry.1337983098'].forEach(name => {
+      document.querySelectorAll(`input[name="${name}"]:checked`).forEach(cb => {
+        params.append(name, cb.value);
+      });
+    });
+
+    // Textarea
+    params.append('entry.749666861', document.getElementById('textarea15').value);
+
+    // Email optionnel
+    const email = document.getElementById('emailField').value;
+    if (email) params.append('emailAddress', email);
+
+    try {
+      // On utilise no-cors car Google Forms ne renvoie pas de CORS headers
+      await fetch(submitURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+      });
+    } catch (e) {
+      // no-cors génère une "opaque response" qui est normale
+    }
+
+    // Affichage du succès
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('progressBar').style.width = '100%';
+    const success = document.getElementById('successScreen');
+    success.classList.add('visible');
+    success.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
